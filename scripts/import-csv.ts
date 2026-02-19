@@ -6,13 +6,21 @@ import * as fs from 'fs'
 import * as path from 'path'
 import { createClient } from '@supabase/supabase-js'
 
-// Load env manually
+// Try to load env manually if .env.local exists, otherwise use system env
 const envPath = path.join(__dirname, '../.env.local')
-const envContent = fs.readFileSync(envPath, 'utf-8')
-envContent.split('\n').forEach(line => {
-    const [key, val] = line.split('=')
-    if (key && val) process.env[key.trim()] = val.trim()
-})
+if (fs.existsSync(envPath)) {
+    const envContent = fs.readFileSync(envPath, 'utf-8')
+    envContent.split('\n').forEach(line => {
+        const [key, val] = line.split('=')
+        if (key && val) process.env[key.trim()] = val.trim()
+    })
+}
+
+if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+    console.error('Error: NEXT_PUBLIC_SUPABASE_URL y NEXT_PUBLIC_SUPABASE_ANON_KEY son necesarios.')
+    console.log('Puedes ponerlos en .env.local o pasarlos por terminal.')
+    process.exit(1)
+}
 
 const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
