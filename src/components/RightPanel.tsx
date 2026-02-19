@@ -4,7 +4,7 @@ import { Lead } from '@/lib/supabase'
 import {
     Heart, HeartOff, Eye, Mail, MessageSquare,
     Send, CheckCircle, ExternalLink, Link,
-    MessageCircle, Zap, Shield
+    MessageCircle, Zap, Shield, Linkedin
 } from 'lucide-react'
 
 interface RightPanelProps {
@@ -74,8 +74,8 @@ export default function RightPanel({
                             key={status.id}
                             onClick={() => setStatus(status.id as any)}
                             className={`p-2 rounded-xl border flex flex-col items-center gap-1 transition-all ${lead.estado_linkedin === status.id
-                                    ? 'bg-[#1b1b26] border-[#6c63ff] ring-1 ring-[#6c63ff]/30'
-                                    : 'bg-transparent border-[#2a2a3a] text-[#9090a8] hover:border-[#3a3a4a]'
+                                ? 'bg-[#1b1b26] border-[#6c63ff] ring-1 ring-[#6c63ff]/30'
+                                : 'bg-transparent border-[#2a2a3a] text-[#9090a8] hover:border-[#3a3a4a]'
                                 }`}
                         >
                             <status.icon size={16} className={lead.estado_linkedin === status.id ? status.color : 'text-[#505068]'} />
